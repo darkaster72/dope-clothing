@@ -1,13 +1,9 @@
-import './homepage.styles.scss'
+import Directory from './components/directory/directory.component';
+import './homepage.styles.scss';
 
 const Homepage = () => (
     <div className="homepage">
-        <div className='menu-item'>
-            <div className="content">
-                <h1 className="title">JACKETS</h1>
-                <h3 className="subtitle">Shop now</h3>
-            </div>
-        </div>
+        <Directory></Directory>
     </div>
 );
 
