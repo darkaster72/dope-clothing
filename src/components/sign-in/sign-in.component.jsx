@@ -44,7 +44,9 @@ class SignIn extends React.Component {
         );
     }
 
-    signIn = (event) => event.preventDefault()
+    signIn = (event) => {
+        event.preventDefault();
+    }
 }
 
 export default SignIn;
