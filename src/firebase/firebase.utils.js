@@ -40,5 +40,5 @@ const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' })
 export const auth = getAuth(app)
 
-export const signInWithGoogle = () => signInWithPopup(auth, provider)
-export const signInWithCredintial = (email, password) => signInWithEmailAndPassword(auth, email, password)
+export const signInWithGoogle = async () => signInWithPopup(auth, provider)
+export const signInWithCredintial = async (email, password) => await signInWithEmailAndPassword(auth, email, password)

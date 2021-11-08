@@ -44,10 +44,14 @@ class SignIn extends React.Component {
         );
     }
 
-    signIn = (event) => {
+    signIn = async (event) => {
         event.preventDefault();
         const { email, password } = this.state;
-        signInWithCredintial(email, password);
+        try {
+            await signInWithCredintial(email, password);
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 
