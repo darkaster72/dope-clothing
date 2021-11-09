@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { auth } from '../../firebase/firebase.utils';
+import CartIcon from '../cart-icon/cart-icon.component';
 
 class Header extends React.Component {
 
@@ -21,6 +22,7 @@ class Header extends React.Component {
                             ? <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>
                             : <Link to="/signin" className="option">SIGN IN</Link>
                     }
+                    <CartIcon className="options" />
                 </div>
             </div>
         );
