@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 class Header extends React.Component {
 
@@ -24,12 +25,14 @@ class Header extends React.Component {
                     }
                     <CartIcon className="options" />
                 </div>
+                {!this.props.cartDropdownHidden && <CartDropdown />}
             </div>
         );
     }
 }
 const mapStateToProps = state => ({
     currentUser: state.user.currentUser,
+    cartDropdownHidden: state.cart.hidden
 })
 
 export default connect(mapStateToProps)(Header);
