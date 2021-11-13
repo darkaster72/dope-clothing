@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
-import { selectCollectionIsFetching } from "../../redux/shop/shop.selector";
-import CollectionOverview from "./collection-overview.component";
+import { selectCollectionIsLoaded } from "../../redux/shop/shop.selector";
 import WithSpinner from "../with-spinner/with-spinner.component";
+import CollectionOverview from "./collection-overview.component";
 
 const mapStateToProps = createStructuredSelector({
-    isLoading: selectCollectionIsFetching
+    isLoading: state => !selectCollectionIsLoaded(state)
 })
 
 export default compose(
