@@ -1,17 +1,17 @@
-import { createStructuredSelector } from 'reselect';
-import React from 'react';
 import { onSnapshot } from '@firebase/firestore';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import Homepage from './pages/home/homepage.component';
-import ShopPage from './pages/shop/shop-page.component'
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
+import './App.css';
 import Header from './components/header/header.component';
-import SignInPage from './pages/sign-in/sign-in-page.component';
 import { auth, createUserProfile } from './firebase/firebase.utils';
+import Checkout from './pages/checkout/checkout.component';
+import Homepage from './pages/home/homepage.component';
+import ShopPage from './pages/shop/shop-page.component';
+import SignInPage from './pages/sign-in/sign-in-page.component';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selector';
-import Checkout from './pages/checkout/checkout.component';
-import './App.css';
 
 class App extends React.Component {
     unsubscribeFromAuth = null;
@@ -50,7 +50,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = dispatch => ({

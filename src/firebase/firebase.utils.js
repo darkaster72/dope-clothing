@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp, } from "firebase/app";
-import { getFirestore, setDoc, doc, getDoc } from 'firebase/firestore'
+import { getFirestore, setDoc, doc, getDoc, collection, writeBatch } from 'firebase/firestore'
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyDGwx6zXbnDAE3d5VwRoTmVEnr5pangaCM",
     authDomain: "dope-clothing.firebaseapp.com",
@@ -33,6 +28,31 @@ export const createUserProfile = async (user, additionalData) => {
         await setDoc(docRef, { displayName, email, createdAt, ...additionalData })
     }
     return docRef
+}
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collRef = collection(db, collectionKey)
+    const batch = writeBatch(db)
+    objectsToAdd.forEach(item => {
+        const newDocRef = doc(collRef)
+        batch.set(newDocRef, item)
+    })
+    return await batch.commit()
+}
+
+export const convertCollectionSnapToMap = (collectionSnap) => {
+    return collectionSnap.docs
+        .reduce((acc, doc) => {
+            const data = doc.data()
+            const key = data.title.toLowerCase();
+            acc[key] = {
+                id: doc.id,
+                title: data.title,
+                items: data.items,
+                routeName: encodeURI(key)
+            }
+            return acc
+        }, {})
 }
 
 // setup provider
