@@ -1,6 +1,6 @@
 import { initializeApp, } from "firebase/app";
-import { getFirestore, setDoc, doc, getDoc, collection, writeBatch } from 'firebase/firestore'
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth'
+import { getFirestore, setDoc, doc, getDoc, collection, writeBatch, onSnapshot } from 'firebase/firestore'
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDGwx6zXbnDAE3d5VwRoTmVEnr5pangaCM",
@@ -55,10 +55,19 @@ export const convertCollectionSnapToMap = (collectionSnap) => {
         }, {})
 }
 
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(auth, () => {
+            unsubscribe();
+            resolve(auth.currentUser)
+        }, reject)
+    })
+}
+
 // setup provider
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' })
+export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' })
 export const auth = getAuth(app)
 
-export const signInWithGoogle = async () => signInWithPopup(auth, provider)
+export const signInWithGoogle = async () => signInWithPopup(auth, googleProvider)
 export const signInWithCredintial = async (email, password) => await signInWithEmailAndPassword(auth, email, password)

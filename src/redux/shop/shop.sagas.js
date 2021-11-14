@@ -1,10 +1,10 @@
 import { collection, getDocs } from '@firebase/firestore'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { convertCollectionSnapToMap, db } from '../../firebase/firebase.utils'
 import { fetchCollectionError, fetchCollectionSuccess } from './shop.actions'
 import { ShopActionTypes } from './shop.types'
 
-export function* fetchCollectionsAsync() {
+function* fetchCollectionsAsync() {
     const collRef = collection(db, 'collections')
     try {
         const snap = yield getDocs(collRef)
@@ -16,7 +16,11 @@ export function* fetchCollectionsAsync() {
     }
 }
 
-export function* fetchCollectionStart() {
+function* fetchCollectionStart() {
     // it's like switchMap
     yield takeLatest(ShopActionTypes.FETCH_COLLECTION_START, fetchCollectionsAsync)
+}
+
+export function* shopSagas() {
+    yield all([call(fetchCollectionStart)])
 }
