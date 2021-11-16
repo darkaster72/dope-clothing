@@ -1,9 +1,7 @@
-import { connect } from 'react-redux';
-import { CustomButton } from '../custom-button/custom-button.component';
-import { addItem } from '../../redux/cart/cart.actions';
-import './collection-item.styles.scss'
 import { useContext } from 'react';
 import { CartContext } from '../../provider/cart/cart.provider';
+import { CustomButton } from '../custom-button/custom-button.component';
+import './collection-item.styles.scss';
 
 const CollectionItem = ({ item }) => {
     const { addItem } = useContext(CartContext)
